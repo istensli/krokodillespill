@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krokodillespill</title>
+    <style>
+        #poeng-div{
+            font-size: large;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div id="poeng-div">Poeng: 0</div>
+    <div id="bilde-div"><img id="bilde" src="krokodille.png" alt="Krokodille">
+    </div>
+    <div id="innhold-div">
+        <p id="forste-tall"></p> <br />
+        <input type="text" id="kraake-input"></p> <br />
+        <p id="andre-tall"></p> <br />
+        <button id="submit" onclick="submit()">Submit</button>
+        <button id="reset" onclick="setTall()">Reset</button>
+    </div>
+    
+
+
+    <script>
+        //Beklager blanding av norsk/engelsk på variabel- og funksjonsnavn
+
+
+
+        let poengDiv = document.getElementById('poeng-div');
+        let kraakeInput = document.getElementById('kraake-input');
+        let forsteTallDiv = document.getElementById('forste-tall');
+        let andreTallDiv = document.getElementById('andre-tall');
+
+        let forsteTall = 0;
+        let andreTall = 0;
+
+        let kraaketegn = String(kraakeInput.value);
+        let mindre = false;
+        let storre = false;
+        let equal = false;
+
+        let poeng = 0;
+
+        setTall();
+
+        
+
+        
+        function setTall(){
+
+            setBoolValuesToFalse();
+
+
+            forsteTall = getRandomNumberBetweenOneTen();
+            andreTall = getRandomNumberBetweenOneTen();
+
+
+            forsteTallDiv.innerHTML = forsteTall;
+            andreTallDiv.innerHTML = andreTall;
+
+        }
+
+        
+
+        function getRandomNumberBetweenOneTen(){
+            return Math.floor(Math.random() * 10 + 1);
+        }
+
+        //kun for aa teste funksjonen over
+        function testRandom(){
+            console.log(getRandomNumberBetweenOneTen());
+        }
+
+
+
+        function submit(){
+            checkValues();
+
+            kraaketegn = String(kraakeInput.value);
+
+            
+            if(mindre && (kraaketegn == '<')){
+                poeng++;
+                setPoengDiv();
+                console.log('Riktig svar');
+
+            }
+            else if(storre && (kraaketegn == '>')){
+                poeng++;
+                setPoengDiv();
+                console.log('Riktig svar');
+            }
+            else if(equal && (kraaketegn == '=')){
+                poeng++;
+                setPoengDiv();
+                console.log('Riktig svar');
+            }
+            else{
+                poeng--;
+                setPoengDiv();
+                console.log('Feil svar');
+                
+            }
+
+            setBoolValuesToFalse();
+
+
+        }
+
+
+
+        function checkValues(){
+            if(forsteTall < andreTall){
+                mindre = true;
+                storre = false;
+                equal = false;
+            }
+            else if(forsteTall > andreTall){
+                storre = true;
+                mindre = false;
+                equal = false;
+            }
+            else if(forsteTall == andreTall){
+                equal = true;
+                storre = false;
+                mindre = false;
+                
+            }
+            else{
+                console.log('error...');
+            }
+
+            
+
+            
+        }
+
+        function setPoengDiv(){
+            poengDiv.innerHTML = 'Poeng: ' + poeng;
+        }
+
+        function setBoolValuesToFalse(){
+            mindre = false;
+            storre = false;
+            equal = false;
+
+        }
+
+
+
+    </script>
+
+    
+
+
+    
+</body>
+</html>
